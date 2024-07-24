@@ -8,8 +8,9 @@ def main():
     # affichage des messages
     setup_logging()
 
-    # results folder
-    res_folder = 'results/'
+    # pathing
+    root_path = '/Users/nguyen/Desktop/RS'
+    res_folder = root_path+'/results/'
 
     # load tmdb df and std
     tmdb_cols = {
@@ -17,7 +18,7 @@ def main():
             'original_title': 'title',
             'overview': 'plot'
         }
-    df_tmdb = process_film_registry(['/Users/nguyen/Desktop/RS/data_source/tmdb_5000_movies.csv'], tmdb_cols, res_folder+"df_tmdb.csv")
+    df_tmdb = process_film_registry([root_path+'/data_source/tmdb_5000_movies.csv'], tmdb_cols, res_folder+"df_tmdb.csv")
 
     # load grouplens df and std
     # in ratings    : userId,movieId,rating,timestamp
@@ -32,9 +33,9 @@ def main():
             'imdbId': 'imdb_movie_id',
             'tmdbId': 'tmdb_movie_id'
         }
-    df_gl = process_film_registry(['/Users/nguyen/Desktop/RS/data_source/ml-latest-small/ratings.csv',
-                                   '/Users/nguyen/Desktop/RS/data_source/ml-latest-small/movies.csv',
-                                   '/Users/nguyen/Desktop/RS/data_source/ml-latest-small/links.csv'],
+    df_gl = process_film_registry([root_path+'/data_source/ml-latest-small/ratings.csv',
+                                   root_path+'/data_source/ml-latest-small/movies.csv',
+                                   root_path+'/data_source/ml-latest-small/links.csv'],
                                    gl_cols, res_folder+"df_gl.csv")
 
     # working subset
