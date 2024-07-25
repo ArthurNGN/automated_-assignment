@@ -18,9 +18,11 @@ def process_movie_genres_df(df, output_file):
             triples.append((movie_id, 'belongs_to', genre))
 
     # Convert the list of triples to a DataFrame
-    triples_df = pd.DataFrame(triples, columns=['movie_id', 'predicate', 'genres'])
+    triples_df = pd.DataFrame(triples, columns=['subject', 'predicate', 'object'])
 
     # Save the triples to a CSV file with header
     triples_df.to_csv(output_file, index=False, header=True)
 
     logging.info(f"Genre triples saved to {output_file}\n")
+
+    return triples_df

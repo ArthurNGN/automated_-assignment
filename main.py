@@ -4,7 +4,9 @@ from plot_to_triples_multi_threading_v2 import process_movie_plot_df
 from process_triples import process_triples_df
 from rating_to_triples import process_movie_rating_df
 from genre_to_triples import process_movie_genres_df
+from preprocess import preprocess_triples
 import pandas as pd
+import logging
 
 def main():
     # affichage des messages
@@ -58,6 +60,16 @@ def main():
 
     # create genre triples
     df_movie_genre_triples = process_movie_genres_df(df_gl, results_folder+"movie_genres_triples.csv")
+
+    ### STEP 2
+    
+    # merge triples
+    merged_triples = pd.concat([df_movie_rating_triples, df_movie_genre_triples], axis=0)
+    
+    logging.info(f"Merged {len(merged_triples)} triples")
+
+    # graph
+    preprocess_triples(merged_triples)
 
 if __name__ == "__main__":
     main()

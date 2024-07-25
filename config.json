@@ -1,0 +1,17 @@
+{
+    "entities": {
+        "entity": {"num_partitions": 1}
+    },
+    "relations": [
+        {"name": "relation", "lhs": "entity", "rhs": "entity", "operator": "translation"}
+    ],
+    "entity_path": "data/",
+    "edge_paths": ["data/edges/"],
+    "checkpoint_path": "model/",
+    "dimension": 100,
+    "global_emb": false,
+    "comparator": "dot",
+    "num_epochs": 50,
+    "lr": 0.1,
+    "eval_fraction": 0.1
+}
