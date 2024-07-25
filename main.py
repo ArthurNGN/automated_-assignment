@@ -1,7 +1,9 @@
 from process_data_source import process_film_registry
 from setup_logging import setup_logging
-from plot_to_triples_multi_threading_v2 import process_movie_df
+from plot_to_triples_multi_threading_v2 import process_movie_plot_df
 from process_triples import process_triples_df
+from rating_to_triples import process_movie_rating_df
+from genre_to_triples import process_movie_genres_df
 import pandas as pd
 
 def main():
@@ -40,16 +42,22 @@ def main():
                                    gl_cols, results_folder+"df_gl.csv")
 
     # working subset
-    df_tmdb_subset = df_tmdb.head(16)
+    df_tmdb_subset = df_tmdb.head(5)
 
-    # create triples (avoid building a df)
-    process_movie_df(df_tmdb_subset, 5, results_folder+"film_registry_triples.csv")
+    # create plot triples (avoid building a df)
+    process_movie_plot_df(df_tmdb_subset, 5, results_folder+"movie_plot_triples.csv")
 
-    # load csv triples
-    df_film_registrey_triples = pd.read_csv(results_folder+"film_registry_triples.csv")
+    # load csv plot triples
+    df_film_registrey_triples = pd.read_csv(results_folder+"movie_plot_triples.csv")
 
-    # process triples
-    df_processed_film_registrey_triples = process_triples_df(df_film_registrey_triples, results_folder+"film_registry_processed_triples.csv")
+    # process plot triples
+    df_processed_film_registrey_triples = process_triples_df(df_film_registrey_triples, results_folder+"movie_plot_processed_triples.csv")
+
+    # create rating triples
+    df_movie_rating_triples = process_movie_rating_df(df_gl, results_folder+"movie_rating_triples.csv")
+
+    # create genre triples
+    df_movie_genre_triples = process_movie_genres_df(df_gl, results_folder+"movie_genres_triples.csv")
 
 if __name__ == "__main__":
     main()

@@ -37,21 +37,21 @@ def process_triples_df(df, output_csv_file_name):
     for index, row in df.iterrows():
         movie_id = row['movie_id']
         title = row['title']
-        triples = row['triples']
-        graph = generate_graph(movie_id, triples)
+        old_triples = row['triples']
+        graph = generate_graph(movie_id, old_triples)
 
         # Create the new triples for the graph
-        new_triples = '$'.join([f"[{triple[0]}|{triple[1]}|{triple[2]}]" for triple in graph])
+        triples = '$'.join([f"[{old_triples[0]}|{old_triples[1]}|{old_triples[2]}]" for old_triples in graph])
 
         # Append the processed row to the list
-        processed_data.append([movie_id, title, triples, new_triples])
+        processed_data.append([movie_id, title, triples])
 
     # Convert the processed data into a DataFrame
-    processed_df = pd.DataFrame(processed_data, columns=['movie_id', 'title', 'triples', 'new_triples'])
+    processed_df = pd.DataFrame(processed_data, columns=['movie_id', 'title', 'triples'])
 
     logging.info(f"{len(processed_df)} triples successfully processed")
 
     processed_df.to_csv(output_csv_file_name, index=False)  # Save the processed data to a new CSV file
 
-    logging.info(f"DataFrame saved in {output_csv_file_name}")
+    logging.info(f"DataFrame saved in {output_csv_file_name}\n")
     return processed_df

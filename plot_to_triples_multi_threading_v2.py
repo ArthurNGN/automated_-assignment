@@ -52,7 +52,7 @@ def process_single_movie(row):
         logging.error(f"Error processing movie_id {row['movie_id']}: {str(e)}")
         return None
 
-def process_movie_df(df, threads, output_csv_file_name):
+def process_movie_plot_df(df, threads, output_csv_file_name):
     # Load existing output file if it exists
     processed_movie_ids = set()
     if os.path.exists(output_csv_file_name):
